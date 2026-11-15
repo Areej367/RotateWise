@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="RotateWise helps farmers anywhere compare crop rotations using NASA-style climate data, soil health and their own priorities.">
+<title>RotateWise – Crop Rotation Advisor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light;--bg:#f7f5ee;--cd:#fff;--tx:#17251b;--mu:#4d5e51;--ac:#1f6f43;--on:#fff;--a2:#e0a526;--ln:#dcd7c6;--wn:#a8470f;--bl:#1d5f96;--sh:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(30,60,40,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1812;--cd:#17231a;--tx:#e9f1e8;--mu:#a6b8aa;--ac:#62c487;--on:#07140b;--a2:#f0bd4a;--ln:#2b3b2f;--wn:#f0955c;--bl:#79b8ec;--sh:none}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1812;--cd:#17231a;--tx:#e9f1e8;--mu:#a6b8aa;--ac:#62c487;--on:#07140b;--a2:#f0bd4a;--ln:#2b3b2f;--wn:#f0955c;--bl:#79b8ec;--sh:none}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:0 0 8px}h1{font-size:clamp(28px,5vw,42px)}h2{font-size:22px}h3{font-size:18px}
+.w{max-width:1080px;margin:0 auto;padding:0 16px}main{padding-bottom:32px}
+.skip{position:absolute;left:-999px;background:var(--ac);color:var(--on);padding:8px 14px;z-index:20}.skip:focus{left:8px;top:8px}
+:focus-visible{outline:3px solid var(--a2);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--ln);z-index:10}
+.bar{display:flex;align-items:center;gap:12px;padding:8px 16px;flex-wrap:wrap}.logo{font:700 20px Fraunces,Georgia,serif;color:var(--ac);text-decoration:none}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1}nav a{padding:6px 12px;border-radius:18px;text-decoration:none;color:var(--mu);white-space:nowrap;font-size:14px;font-weight:500}nav a[aria-current=page]{background:var(--ac);color:var(--on)}
+select,input[type=number]{width:100%;padding:9px;border-radius:8px;border:1px solid var(--ln);background:var(--cd);color:var(--tx);font:inherit}#un,#lg{width:auto}
+.pg{display:none}.pg.on{display:block}
+.hero{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));align-items:center;padding:28px 0}.hero p{font-size:18px;color:var(--mu)}
+.g{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}.c{background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:16px;box-shadow:var(--sh)}
+.btn{display:inline-block;background:var(--ac);color:var(--on);padding:11px 20px;border-radius:10px;text-decoration:none;font-weight:600;border:2px solid var(--ac);margin:6px 8px 0 0;cursor:pointer;font-size:15px}.btn.o{background:none;color:var(--ac)}
+.ic{width:44px;height:44px;border-radius:12px;background:var(--ac);color:var(--on);display:grid;place-items:center;font-size:22px;margin-bottom:8px}
+.f{margin-top:10px}label{display:block;font-size:14px;color:var(--mu);font-weight:500;margin-bottom:3px}output{float:right;color:var(--tx);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--ac)}.mu{color:var(--mu)}
+.tag{display:inline-block;font-size:13px;padding:2px 10px;border-radius:12px;border:1px solid var(--ln);margin:2px 4px 2px 0}.tag.ok{border-color:var(--ac);color:var(--ac);font-weight:600}.tag.wn{border-color:var(--wn);color:var(--wn)}
+.bar2{height:10px;background:var(--ln);border-radius:6px;overflow:hidden;margin:6px 0}.bar2 i{display:block;height:100%;background:var(--ac)}
+.best{border:2px solid var(--ac)}.sc{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:5px 8px;border-bottom:1px solid var(--ln);text-align:left}td.cc{text-align:center;font-size:16px}
+ul{margin:4px 0 10px;padding-left:20px}.ok{color:var(--ac)}.no{color:var(--wn)}.gp{color:var(--bl)}
+.note{border-left:4px solid var(--a2);background:var(--cd);padding:10px 14px;border-radius:0 10px 10px 0;margin:16px 0;font-size:14px;color:var(--mu)}
+.lg{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px}.lg i{display:inline-block;width:18px;height:4px;margin-right:6px;vertical-align:middle}
+footer{border-top:1px solid var(--ln);padding:18px 0;font-size:14px;color:var(--mu)}svg{max-width:100%;height:auto}
+@media (prefers-reduced-motion:no-preference){.btn,.c{transition:transform .15s}.btn:hover,.c:hover{transform:translateY(-2px)}}
+a{color:var(--bl)}button.btn{font-family:inherit}select,input[type=number],.btn{min-height:44px}input[type=range]{height:28px}@media(max-width:700px){nav{order:3;flex-basis:100%}.bar{gap:8px}.hero{padding:16px 0}.c{padding:14px}}@media print{header,footer,.noprint{display:none}.pg{display:none}.pg.on{display:block}body{background:#fff;color:#000}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="w bar"><a class="logo" href="#home">🌾 RotateWise</a>
+<nav id="nav" aria-label="Main"><a href="#home">Home</a><a href="#setup">My farm</a><a href="#results">Results</a><a href="#climate">Climate</a><a href="#map">Field map</a><a href="#plan">Action plan</a><a href="#learn">Learn</a><a href="#about">About</a></nav>
+<label for="un" class="mu" style="margin:0">Units</label><select id="un"><option value="C">°C</option><option value="F">°F</option></select><button id="th" class="btn o" style="margin:0;padding:4px 12px;min-height:40px" aria-pressed="false">🌙 Dark</button></div></header>
+<main id="main" class="w">
+
+<section class="pg on" id="home" aria-labelledby="h-home">
+<div class="hero"><div><h1 id="h-home" tabindex="-1">The right crop rotation, for any farm on Earth.</h1>
+<p>Droughts, heat and tired soils are hitting farmers in every country. RotateWise turns free NASA climate records into clear, explainable rotation options anyone can explore on a phone.</p>
+<a class="btn" href="#setup">Start with my farm →</a><a class="btn o" href="#learn">How it works</a></div>
+<svg viewBox="0 0 520 340" role="img" aria-label="Illustration: a satellite orbiting above striped farm fields at sunrise"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c3b6b"/><stop offset=".7" stop-color="#f6b66a"/></linearGradient><clipPath id="cp"><rect width="520" height="340" rx="22"/></clipPath></defs>
+<g clip-path="url(#cp)"><rect width="520" height="340" fill="url(#sk)"/><circle cx="390" cy="200" r="48" fill="#ffe08a"/>
+<path d="M0 215Q120 150 260 208T520 190V340H0Z" fill="#3f8a57"/><path d="M0 252Q150 214 300 248T520 238V340H0Z" fill="#2f7a49"/>
+<path d="M-60 340L150 262H195L70 340Z" fill="#8cbf5e"/><path d="M70 340L195 262H240L200 340Z" fill="#d9b44a"/><path d="M200 340L240 262H285L330 340Z" fill="#5da35f"/><path d="M330 340L285 262H330L460 340Z" fill="#c9a24a"/><path d="M460 340L330 262H375L590 340Z" fill="#76b25b"/>
+<ellipse cx="150" cy="80" rx="120" ry="28" fill="none" stroke="#fff" stroke-opacity=".6" stroke-dasharray="5 6"/>
+<g transform="translate(120 52)"><rect x="-12" y="-8" width="24" height="16" rx="3" fill="#e8eef5"/><rect x="-46" y="-6" width="30" height="12" fill="#2b6cb0"/><rect x="16" y="-6" width="30" height="12" fill="#2b6cb0"/></g>
+<path d="M120 62L150 250M120 62L260 255" stroke="#fff" stroke-opacity=".7" stroke-dasharray="4 5" fill="none"/></g></svg></div>
+<div class="g"><div class="c"><div class="ic" aria-hidden="true">🛰️</div><h3>NASA climate signal</h3><p class="mu">Rainfall, heat, frost and dry-month patterns for your region, or your own data.</p></div>
+<div class="c"><div class="ic" aria-hidden="true">🌱</div><h3>Soil health first</h3><p class="mu">Scores cover nitrogen fixing, organic matter, erosion cover and pest-cycle breaks.</p></div>
+<div class="c"><div class="ic" aria-hidden="true">🤝</div><h3>Built around you</h3><p class="mu">Set your own priorities, water access and soil. Every score is explained, with risks and gaps.</p></div></div>
+<h2 style="margin-top:28px">The real-world problem</h2>
+<p class="mu">Smallholder and commercial farmers alike must choose rotations under shifting rain, heat and water limits. Good advice is often local, slow or paid. RotateWise gives a fast, transparent first comparison that farmers can then check with local experts.</p>
+<div class="note">A supportive tool: it highlights patterns and possibilities. Final decisions stay with farmers and local agricultural experts.</div></section>
+
+<section class="pg" id="setup" aria-labelledby="h-setup"><h1 id="h-setup" tabindex="-1">My farm</h1><p class="mu">Results update as you change anything.</p>
+<div class="g"><div class="c"><h2>Location and conditions</h2>
+<div class="f"><label for="reg">Climate profile</label><select id="reg"></select></div>
+<div class="f"><label for="cur">Current rotation</label><select id="cur"></select></div>
+<div class="f"><label for="irr">Water access</label><select id="irr"><option value="none">Rainfed only</option><option value="limited" selected>Limited irrigation</option><option value="reliable">Reliable irrigation</option></select></div>
+<div class="f"><label for="eq">Labour and equipment</label><select id="eq"><option value="basic">Basic tools</option><option value="mod" selected>Some machinery</option><option value="adv">Full machinery</option></select></div><div class="f"><label for="mk">Market for new crops</label><select id="mk"><option value="poor">Weak</option><option value="ok" selected>Moderate</option><option value="good">Strong</option></select></div><div class="f"><label for="soil">Soil texture</label><select id="soil"><option value="sandy">Sandy (drains fast)</option><option value="loam" selected>Loam</option><option value="clay">Clay (holds water, compacts)</option></select></div>
+<div class="f"><label for="rain">Rainfall scenario <output id="rv" for="rain"></output></label><input type="range" id="rain" min="-40" max="30" value="0"></div>
+<div class="f"><label for="temp">Warming scenario <output id="tv" for="temp"></output></label><input type="range" id="temp" min="0" max="4" step="0.5" value="1"></div></div>
+<div class="c"><h2>What matters to you (0–5)</h2><div id="pri"></div></div></div>
+<div class="c" id="cust" hidden style="margin-top:14px"><h2>Your own monthly climate</h2><p class="mu">Anywhere in the world: enter monthly averages (°C and mm). Get them free from <a href="https://power.larc.nasa.gov/data-access-viewer/" target="_blank" rel="noopener">NASA POWER Data Access Viewer</a> by choosing your point and “Monthly climatology”.</p>
+<div class="sc"><table><thead><tr><th scope="col">Month</th><th scope="col">Temp °C</th><th scope="col">Rain mm</th></tr></thead><tbody id="ct"></tbody></table></div></div>
+<p><a class="btn" href="#results">See my results →</a><button class="btn o" onclick="saveF()">Save my farm settings</button><button class="btn o" onclick="clrF()">Clear saved settings</button></p><p class="mu" id="svmsg" role="status">Settings are stored only on this device. No account or login needed.</p></section>
+
+<section class="pg" id="results" aria-labelledby="h-res"><h1 id="h-res" tabindex="-1">Rotation comparison</h1>
+<p class="mu" id="sum" role="status"></p><div class="g" id="out"></div>
+<div class="c" style="margin-top:14px"><h2>Soil health outlook (5 years)</h2><p class="mu">Illustrative index (50 = today) from each rotation’s organic matter, nitrogen and cover scores. A trend indicator, not a forecast.</p>
+<div class="sc"><svg id="outlook" viewBox="0 0 640 230" role="img" aria-label="Line chart of five-year soil health index for each rotation"></svg></div><ul class="lg" id="legend"></ul></div>
+<div class="c" style="margin-top:14px"><h2>Field calendar: when is soil bare?</h2><div class="sc" id="cal"></div></div>
+<p><a class="btn" href="#plan">Build my action plan →</a></p></section>
+
+<section class="pg" id="climate" aria-labelledby="h-cl"><h1 id="h-cl" tabindex="-1">Climate signals</h1><div id="ctags"></div>
+<div class="c" style="margin-top:10px"><div class="sc"><svg id="chart" viewBox="0 0 640 215" role="img" aria-label="Monthly rainfall bars and temperature line with dry months marked"></svg></div></div>
+<div class="c" style="margin-top:14px"><h2>Monthly water balance</h2><div class="sc"><table id="ctab"></table></div><p class="mu">Crop water demand is estimated roughly from temperature. Satellite soil moisture (SMAP) and local rain gauges would refine it.</p></div></section>
+
+<section class="pg" id="map" aria-labelledby="h-mp"><h1 id="h-mp" tabindex="-1">Field risk map</h1><p class="mu">A schematic 8×8 field showing where risk concentrates, with your existing rotation beside the top match. Slope is your input here; the full version would use SRTM elevation with Landsat and SMAP layers.</p>
+<div class="g"><div class="c"><div class="f"><label for="slope">Field slope <output id="slv" for="slope"></output></label><input type="range" id="slope" min="0" max="25" value="8"></div><div class="f"><label for="asp">Slope faces</label><select id="asp"><option value="N">North</option><option value="S" selected>South</option><option value="E">East</option><option value="W">West</option></select></div><div class="f"><label for="lay">Risk layer</label><select id="lay"><option value="eros">Erosion</option><option value="water">Water stress</option><option value="frost">Frost pockets</option></select></div></div>
+<div class="c"><h3>Existing rotation</h3><svg id="m0" viewBox="0 0 320 320" role="img" aria-label="Field risk map for the existing rotation: 8 by 8 zones marked L, M or H for low, medium or high risk"></svg></div>
+<div class="c"><h3>Top match</h3><svg id="m1" viewBox="0 0 320 320" role="img" aria-label="Field risk map for the top-match rotation: 8 by 8 zones marked L, M or H"></svg></div></div>
+<ul class="lg"><li><span style="background:#7cc38f;color:#111;padding:1px 8px;border-radius:4px">L</span> low</li><li><span style="background:#e8c35b;color:#111;padding:1px 8px;border-radius:4px">M</span> medium</li><li><span style="background:#d9674a;color:#111;padding:1px 8px;border-radius:4px">H</span> high</li></ul><p class="mu" id="mtxt"></p></section>
+<section class="pg" id="plan" aria-labelledby="h-pl"><h1 id="h-pl" tabindex="-1">Your action plan</h1><div id="planbody"></div>
+<button class="btn noprint" onclick="dl()">Download plan as PDF</button><p class="mu noprint" id="dlmsg" role="status"></p></section>
+
+<section class="pg" id="learn" aria-labelledby="h-ln"><h1 id="h-ln" tabindex="-1">Learn the science</h1>
+<div class="g"><div class="c"><h3>NDVI</h3><p class="mu">A greenness index from MODIS and Landsat. Low values mean bare or stressed fields.</p></div><div class="c"><h3>Evapotranspiration</h3><p class="mu">Water lost from soil and plants together, highest in hot, dry months.</p></div><div class="c"><h3>Soil moisture anomaly</h3><p class="mu">SMAP soil moisture compared with normal. Long negative runs signal drought stress.</p></div><div class="c"><h3>Frost risk</h3><p class="mu">Nights near 0 °C damage young crops and set sowing windows.</p></div></div>
+<h2 style="margin-top:22px">How crops rebuild soil</h2>
+<div class="g"><div class="c"><h3>🌱 Nitrogen fixers</h3><p class="mu">Soybean, chickpea and clover feed the next crop and cut fertiliser need.</p></div><div class="c"><h3>🍃 Cover crops</h3><p class="mu">Fill bare months, reduce erosion and add organic matter.</p></div><div class="c"><h3>🌾 Deep roots</h3><p class="mu">Break compaction so rain soaks in rather than running off.</p></div><div class="c"><h3>☀️ Drought-tolerant crops</h3><p class="mu">Sorghum and millet keep fields productive when water is short.</p></div></div>
+<div class="c" style="margin-top:14px"><h3>Satellite vs ground data</h3><p class="mu">Satellites give steady coverage for decades but at coarse resolution (SMAP about 9–36 km). Your own soil tests and field notes correct local errors. Combining both is best.</p></div></section>
+
+<section class="pg" id="about" aria-labelledby="h-ab"><h1 id="h-ab" tabindex="-1">Data and method</h1>
+<div class="c"><div class="sc"><table><thead><tr><th scope="col">Signal</th><th scope="col">NASA product</th><th scope="col">Status</th></tr></thead><tbody>
+<tr><td>Temperature, rainfall</td><td>NASA POWER (GPM IMERG planned)</td><td>In use: monthly climatology for 8 regions</td></tr>
+<tr><td>Soil moisture</td><td>SMAP</td><td>Proxy now, planned</td></tr>
+<tr><td>Vegetation, bare fields</td><td>MODIS, Landsat NDVI</td><td>Planned</td></tr>
+<tr><td>Heat stress</td><td>ECOSTRESS</td><td>Planned</td></tr>
+<tr><td>Groundwater trend</td><td>GRACE-FO</td><td>Planned</td></tr>
+<tr><td>Slope and erosion</td><td>SRTM</td><td>Planned</td></tr></tbody></table></div></div>
+<h2 style="margin-top:18px">How scoring works</h2><p class="mu">Each rotation is rated 0–1 on water use, income, nitrogen fixing, soil cover, organic matter, heat resilience and rainfall fit. Your priority sliders weight these. Growing windows come from the local temperature curve; cover crops fill bare months. Uncertainty rises with the scenario sliders, and every number should be checked locally.</p>
+<h2>AI and data-fusion approach</h2><p class="mu"><b>Implemented:</b> an explainable multi-criteria scoring model plus a robustness test. Each rotation is re-scored in 20 simulated futures (rainfall within 20% either side of your scenario, temperature from 1 °C cooler to 2 °C warmer) and we report how often it stays the top choice. A rotation that wins in most futures is a safer suggestion.</p>
+<p class="mu"><b>Data harmonisation:</b> SMAP (about 9 km), GPM (about 10 km), NASA POWER (about 50 km), MODIS NDVI (250 m to 1 km), Landsat (30 m) and ECOSTRESS (70 m) differ in resolution. The planned pipeline aggregates each layer to monthly values on one common grid, resampling fine layers up to the coarse grid and interpolating coarse layers down, then feeds the same features to the model.</p>
+<p class="mu"><b>Methods compared:</b> rule-based scoring (used, because farmers can see why), clustering of NDVI time series to find seasonal transitions and bare periods, z-score anomaly detection for soil moisture, and tree-based models for yield proxies when local yield records exist.</p>
+<p class="mu"><b>Where local expertise is essential:</b> soil tests and salinity, seed and variety choice, pest history, markets and prices, and water-right or legal limits.</p>
+<h2>Accessibility</h2><p class="mu">Keyboard navigable, skip link, labelled controls, text and symbols alongside colour, light and dark modes, reduced-motion support and printable output.</p>
+<div class="note"><b>Data notice:</b> monthly temperature and rainfall come from NASA POWER long-term climatology (satellite and model based) for one representative point per region. SMAP, MODIS and GRACE-FO layers are planned. Crop ratings are simplified 1–5 estimates. Validate with local agronomists before real decisions.</div></section>
+</main>
+<footer><div class="w">Built for the 2026 NASA Space Apps Challenge · a decision-support tool, not a replacement for local expertise.</div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $=i=>document.getElementById(i),MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],Q=s=>document.querySelectorAll(s);
+const R={sindh:{n:"Sindh, Pakistan",t:[16.7, 20.3, 26.0, 30.9, 33.4, 33.9, 32.7, 31.2, 30.5, 28.9, 23.6, 18.1],r:[2, 2, 4, 3, 25, 15, 44, 63, 27, 4, 1, 5]},
+punjab:{n:"Punjab plains, Pakistan",t:[12.6, 15.9, 22.2, 28.6, 34.8, 37.4, 35.9, 34.3, 31.7, 26.9, 20.1, 14.7],r:[12, 22, 33, 26, 17, 53, 115, 72, 50, 7, 12, 9]},
+poth:{n:"Pothohar plateau, Pakistan (rainfed)",t:[10.8, 13.6, 19.1, 25.1, 31.3, 34.4, 32.3, 30.2, 27.9, 23.8, 17.7, 12.9],r:[31, 68, 68, 45, 47, 98, 210, 166, 74, 19, 13, 19]},
+india:{n:"Maharashtra, India",t:[20.5, 24.4, 29.0, 33.8, 36.7, 32.0, 27.3, 26.4, 26.4, 24.5, 21.9, 20.0],r:[15, 10, 20, 13, 21, 223, 361, 310, 200, 48, 10, 3]},
+kenya:{n:"Rift Valley highlands, Kenya",t:[16.1, 16.9, 17.3, 16.4, 15.4, 14.7, 14.2, 14.4, 15.2, 15.7, 15.7, 15.7],r:[54, 39, 105, 206, 149, 82, 68, 89, 85, 115, 146, 95]},
+spain:{n:"Murcia, Spain (Mediterranean)",t:[8.9, 9.7, 12.7, 15.5, 19.4, 24.3, 27.0, 26.8, 23.0, 18.7, 12.8, 9.6],r:[27, 16, 34, 32, 19, 10, 3, 14, 35, 27, 35, 34]},
+iowa:{n:"Iowa, USA (Midwest)",t:[-5.6, -4.1, 3.3, 10.3, 16.4, 22.3, 24.8, 23.4, 18.9, 10.8, 3.7, -3.0],r:[23, 29, 48, 91, 120, 130, 94, 110, 87, 71, 42, 38]},
+brazil:{n:"Goias, Brazil (Cerrado)",t:[23.3, 23.2, 23.1, 22.4, 20.6, 20.2, 20.9, 23.5, 26.3, 26.1, 24.2, 23.6],r:[239, 206, 209, 109, 24, 6, 3, 8, 44, 122, 194, 234]},
+custom:{n:"Custom: enter my own data",t:[16.7,20.3,26.0,30.9,33.4,33.9,32.7,31.2,30.5,28.9,23.6,18.1],r:[2,2,4,3,25,15,44,63,27,4,1,5]}};
+const C={wheat:["Wheat","Grass",3,0,3,2,3,2,"c",5],maize:["Maize","Grass",4,0,2,2,4,3,"w",5],rice:["Rice","Grass",5,0,2,1,4,2,"w",5],sorg:["Sorghum / millet","Grass",2,0,3,3,2,5,"w",4],cot:["Cotton","Mallow",4,0,2,1,4,3,"w",6],soy:["Soybean","Legume",3,4,3,3,4,3,"w",4],chk:["Chickpea / lentil","Legume",1,4,2,2,3,2,"c",5],mung:["Mung bean / cowpea","Legume",1,4,3,3,2,4,"w",3],can:["Canola / mustard","Brassica",2,0,3,2,3,2,"c",5],cov:["Cover crop mix","Legume",2,3,4,4,1,3,"g",0]};
+const A=k=>{const[n,f,w,N,c,o,i,h,s,d]=C[k];return{n,f,w,N,c,o,i,h,s,d}};
+const CUR={cm:["wheat","maize"],wc:["wheat","cot"],rw:["rice","wheat"],mm:["maize"],sm:["soy","maize"]},CN={cm:"Wheat – Maize",wc:"Wheat – Cotton",rw:"Rice – Wheat",mm:"Maize only",sm:"Soybean – Maize"};
+const PR=[["water","Save water",5],["inc","Income",3],["nfix","Fix nitrogen",4],["eros","Protect soil cover",4],["om","Build organic matter",3],["heat","Heat resilience",4]];
+const NM={water:"low water demand",inc:"income",nfix:"nitrogen fixing",om:"organic matter",heat:"heat resilience",eros:"soil cover",rain:"rainfall fit"};
+$("reg").innerHTML=Object.entries(R).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join("");
+$("cur").innerHTML=Object.entries(CN).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+$("pri").innerHTML=PR.map(([k,l,d])=>`<div class="f"><label for="p_${k}">${l} <output id="v_${k}">${d}</output></label><input type="range" id="p_${k}" min="0" max="5" value="${d}"></div>`).join("");
+$("ct").innerHTML=MN.map((m,i)=>`<tr><th scope="row">${m}</th><td><input type="number" id="ct${i}" aria-label="${m} mean temperature in °C" value="${R.custom.t[i]}"></td><td><input type="number" min="0" id="cr${i}" aria-label="${m} rainfall in mm" value="${R.custom.r[i]}"></td></tr>`).join("");
+const S=()=>{const w={};PR.forEach(([k])=>w[k]=+$("p_"+k).value);return{reg:$("reg").value,cur:$("cur").value,irr:$("irr").value,eq:$("eq").value,mk:$("mk").value,soil:$("soil").value,rain:+$("rain").value,temp:+$("temp").value,w}};
+function runs(m){let b=[];for(let s=0;s<12;s++)if(m[s]&&!m[(s+11)%12]){const a=[];let i=s;while(m[i%12]&&a.length<12){a.push(i%12);i++}if(a.length>b.length)b=a}return b.length?b:(m.every(Boolean)?[0,1,2,3,4,5,6,7,8,9,10,11]:[])}
+function wins(t){const med=[...t].sort((a,b)=>a-b)[6],ok=t.map(x=>x>=2&&x<=38);return{ok,w:runs(t.map((x,i)=>ok[i]&&x>=med)),c:runs(t.map((x,i)=>ok[i]&&x<med))}}
+function an(c,st,cl,W){
+ const main=c.filter(k=>k!=="cov"),cs=c.map(A),S_=Array(12).fill("b"),rr=[],iss=[],V=new Set();let feas=0,hot=0;
+ W.ok.forEach((o,i)=>{if(!o)S_[i]="f"});
+ main.forEach(k=>{const a=A(k),m=(a.s==="w"?W.w:W.c).slice(0,a.d);m.forEach(i=>{S_[i]="c";if(cl.t[i]>=35||(cl.pet[i]>20&&cl.r[i]<.5*cl.pet[i]))V.add(i)});
+  if(m.length>=Math.ceil(a.d*.6))feas++;else iss.push(a.n+" has no good growing window in this climate");
+  if(m.length){const sr=m.reduce((x,i)=>x+cl.r[i],0),sp=m.reduce((x,i)=>x+cl.pet[i],0)||1;rr.push(Math.min(1,sr/sp));hot+=m.filter(i=>cl.t[i]>=35).length/m.length*(6-a.h)/5}else rr.push(0)});
+ if(c.includes("cov")){let q=0;S_.forEach((s,i)=>{if(s==="b"&&q<5){S_[i]="v";q++}})}
+ const grow=W.ok.filter(Boolean).length||1,bare=S_.filter(s=>s==="b").length,n=main.length,av=f=>cs.reduce((s,a)=>s+f(a),0)/cs.length,fit=feas/n,hx=hot/n,rain=rr.reduce((a,b)=>a+b,0)/n;
+ const a={water:av(x=>(6-x.w)/5),inc:av(x=>x.i/4),nfix:av(x=>x.N/4),om:Math.min(1,av(x=>x.o/4)+(new Set(cs.map(x=>x.f)).size>=3?.05:0)),heat:av(x=>x.h/5)*.5+.5*(1-hx),eros:.5*av(x=>x.c/4)+.5*(1-bare/grow),rain};
+ if(st.soil==="sandy")a.water*=.9;if(st.soil==="clay")a.eros=Math.min(1,a.eros+.05);
+ const w={...st.w,rain:{none:4,limited:2,reliable:.5}[st.irr]};w.water*=1+Math.max(0,-st.rain)/30;w.inc*={poor:.6,ok:1,good:1.4}[st.mk]||1;w.heat*=1+st.temp/2;
+ let sw=0,t=0;for(const k in a){sw+=w[k];t+=w[k]*a[k]}
+ const sl=(a.om*3+a.nfix*2+a.eros*2.5-3.4)*1.5-hx*2;
+ return{V:[...V],s:Math.round(t/(sw||1)*100*(.6+.4*fit)*(c.length>2?({basic:.92,mod:.97,adv:1}[st.eq]||1):1)),a,S_,bare,fam:new Set(cs.map(x=>x.f)).size,iss,fit,feas,hx,rain,out:[0,1,2,3,4,5].map(y=>Math.max(5,Math.min(100,50+y*sl)))}}
+let LAST=null;const ALT=st=>{const cc=CUR[st.cur];return[{n:CN[st.cur]+" (existing)",c:cc},{n:"Cereal – Legume rotation",c:["wheat","soy","chk"]},{n:"Drought-smart diversified",c:["sorg","can","mung"]},{n:CN[st.cur]+" + cover crops",c:[...cc,"cov"]}]};
+function run(){const st=S();
+ if(st.reg==="custom"){R.custom.t=MN.map((_,i)=>+$("ct"+i).value||0);R.custom.r=MN.map((_,i)=>Math.max(0,+$("cr"+i).value||0))}
+ $("cust").hidden=st.reg!=="custom";PR.forEach(([k])=>$("v_"+k).textContent=st.w[k]);
+ $("rv").textContent=(st.rain>0?"+":"")+st.rain+"%";$("tv").textContent="+"+st.temp+" °C";
+ const g=R[st.reg],cl={t:g.t.map(x=>x+st.temp),r:g.r.map(x=>x*(1+st.rain/100))};cl.pet=cl.t.map(x=>Math.max(0,3*x));
+ const W=wins(cl.t),cc=CUR[st.cur];
+ const alts=[{n:CN[st.cur]+" (existing)",c:cc},{n:"Cereal – Legume rotation",c:["wheat","soy","chk"]},{n:"Drought-smart diversified",c:["sorg","can","mung"]},{n:CN[st.cur]+" + cover crops",c:[...cc,"cov"]}];
+ const res=alts.map(x=>({...x,...an(x.c,st,cl,W)})),best=res.reduce((p,x,i)=>x.s>res[p].s?i:p,0);
+ LAST={res,best,g,st,cl};const CF=[0,0,0,0],LO=[999,999,999,999],HI=[0,0,0,0];let N=0;
+ for(const d of[-20,-10,0,10,20])for(const e of[-1,0,1,2]){const t2=g.t.map(x=>x+st.temp+e),c2={t:t2,r:g.r.map(x=>x*(1+(st.rain+d)/100))};c2.pet=t2.map(x=>Math.max(0,3*x));const W2=wins(t2),s2={...st,rain:st.rain+d,temp:st.temp+e},sc=ALT(st).map(x=>an(x.c,s2,c2,W2).s);sc.forEach((v,i)=>{LO[i]=Math.min(LO[i],v);HI[i]=Math.max(HI[i],v)});CF[sc.indexOf(Math.max(...sc))]++;N++}LAST.CF=CF.map(v=>Math.round(v/N*100));
+ $("sum").textContent=`Top match for ${g.n}: ${res[best].n}, score ${res[best].s} (existing: ${res[0].s}).`;
+ $("out").innerHTML=res.map((x,j)=>{const e=Object.entries(x.a).sort((p,q)=>q[1]-p[1]),tp=e.slice(0,2),lo=e.slice(-2),d=x.s-res[0].s,od=Math.round(x.out[5]-50);
+ return `<article class="c ${j===best?"best":""}"><h3>${x.n}</h3>${j===best?'<span class="tag ok">★ Top match</span>':""}
+ <div><b style="font-size:28px">${x.s}</b>/100 ${j?`<span class="${d>=0?"ok":"no"}">(${d>=0?"+":""}${d} vs existing)</span>`:""}</div><div class="bar2" aria-hidden="true"><i style="width:${x.s}%"></i></div><p class="mu" style="margin:0 0 6px"><b>Confidence:</b> top choice in ${Math.round(CF[j]/N*100)}% of ${N} simulated futures; score ${LO[j]}–${HI[j]}.</p>
+ <div>${x.c.map(k=>`<span class="tag">${A(k).n}</span>`).join("")}</div>
+ <p class="mu"><b>Why:</b> strongest on ${NM[tp[0][0]]} and ${NM[tp[1][0]]} for your priorities and the +${st.temp} °C scenario.</p>
+ <b class="ok">Benefits</b><ul><li>${x.bare} bare-field month${x.bare===1?"":"s"} per year</li><li>${x.fam} crop famil${x.fam===1?"y":"ies"}${x.fam>=3?", which helps break pest cycles":", so pest carry-over is a concern"}</li><li>Soil outlook ${od>=0?"+":""}${od} points over 5 years</li>${j?`<li>Water-saving index ${Math.round((x.a.water-res[0].a.water)*100)>=0?"+":""}${Math.round((x.a.water-res[0].a.water)*100)} vs existing</li>`:""}</ul>
+ <b class="no">Risks to review locally</b><ul><li>Weakest on ${NM[lo[0][0]]} and ${NM[lo[1][0]]}</li>${x.iss.map(i=>`<li>${i}</li>`).join("")}${st.irr==="none"&&x.rain<.6?`<li>Rain covers only ${Math.round(x.rain*100)}% of crop water need while growing</li>`:""}${x.hx>.12?"<li>Heat stress likely during growing months</li>":""}${st.soil==="clay"&&x.a.water<.5?"<li>Heavy water use on clay can worsen compaction</li>":""}</ul>
+ <b class="gp">Evidence and gaps</b><ul><li>Evidence: ${g.n} temperature and rainfall profile (NASA POWER style)</li><li>Gap: no soil test, salinity, seed or price data loaded</li></ul></article>`}).join("");
+ outlook(res);cal(res);climate(cl,g);planp();mapv();}
+function outlook(res){const col=["#8a8f8a","#3fae6a","#4a90d9","#e0a526"],da=["0","0","7 4","2 3"];let s="";
+ [25,50,75,100].forEach(v=>{const y=200-(v-5)/95*180;s+=`<line x1="50" x2="600" y1="${y}" y2="${y}" stroke="var(--ln)"/><text x="8" y="${y+4}" font-size="11" fill="var(--mu)">${v}</text>`});
+ for(let y=0;y<6;y++)s+=`<text x="${50+y*110}" y="222" text-anchor="middle" font-size="11" fill="var(--mu)">Yr ${y}</text>`;
+ res.forEach((r,j)=>{s+=`<polyline fill="none" stroke="${col[j]}" stroke-width="3" stroke-dasharray="${da[j]}" points="${r.out.map((v,y)=>`${50+y*110},${200-(v-5)/95*180}`).join(" ")}"/>`});
+ $("outlook").innerHTML=s;$("legend").innerHTML=res.map((r,j)=>`<li><i style="background:${col[j]}"></i>${r.n}: ${Math.round(r.out[5])}</li>`).join("")}
+function cal(res){const sy={c:"●",v:"◐",b:"○",f:"❄"},lb={c:"crop growing",v:"cover crop",b:"bare",f:"too cold, dormant"};
+ $("cal").innerHTML=`<table><thead><tr><th scope="col">Rotation</th>${MN.map(m=>`<th scope="col">${m[0]}<span style="position:absolute;left:-999px">${m}</span></th>`).join("")}</tr></thead><tbody>`+res.map(r=>`<tr><th scope="row">${r.n}</th>${r.S_.map((s,i)=>`<td class="cc" title="${MN[i]}: ${lb[s]}" style="color:${s==="b"?"var(--wn)":s==="f"?"var(--bl)":"var(--ac)"}">${sy[s]}<span style="position:absolute;left:-999px">${lb[s]}</span></td>`).join("")}</tr>`).join("")+`</tbody></table><p class="mu">● crop growing · ◐ cover crop · ○ bare soil · ❄ too cold</p>`}
+const tf=x=>$("un").value==="F"?Math.round(x*9/5+32)+" °F":Math.round(x*10)/10+" °C";
+function climate(cl,g){const dry=cl.r.filter((r,i)=>cl.pet[i]>20&&r<.5*cl.pet[i]).length,fr=cl.t.filter(t=>t<=3).length,ht=cl.t.filter(t=>t>=35).length,bal=Math.round(cl.r.reduce((a,b)=>a+b,0)-cl.pet.reduce((a,b)=>a+b,0));
+ $("ctags").innerHTML=`<p class="mu">${g.n} with your scenario applied.</p><span class="tag ${dry>5?"wn":""}">${dry} dry months</span><span class="tag">${fr} frost-risk months</span><span class="tag ${ht?"wn":""}">${ht} very hot months (35 °C+)</span><span class="tag">Annual water balance ${bal} mm</span><p class="mu">Months when your existing rotation is most vulnerable (heat or dry soil): <b>${[...LAST.res[0].V].sort((a,b)=>a-b).map(i=>MN[i]).join(", ")||"none detected"}</b>.</p>`;
+ const mx=Math.max(...cl.r,60),tn=Math.min(...cl.t,0),tx=Math.max(...cl.t,10),Y=t=>160-(t-tn)/(tx-tn)*130;let s="";
+ cl.r.forEach((r,i)=>{const h=r/mx*130,x=34+i*48;s+=`<rect x="${x}" y="${160-h}" width="30" height="${h}" rx="3" fill="var(--bl)" opacity=".75"/><text x="${x+15}" y="180" text-anchor="middle" font-size="11" fill="var(--mu)">${MN[i][0]}</text>`;if(cl.pet[i]>20&&r<.5*cl.pet[i])s+=`<text x="${x+15}" y="200" text-anchor="middle" font-size="13" fill="var(--wn)">▲</text>`});
+ $("chart").innerHTML=s+`<polyline fill="none" stroke="var(--wn)" stroke-width="3" points="${cl.t.map((t,i)=>`${49+i*48},${Y(t)}`).join(" ")}"/><text x="34" y="14" font-size="12" fill="var(--bl)">▮ Rainfall</text><text x="130" y="14" font-size="12" fill="var(--wn)">— Temperature</text><text x="250" y="14" font-size="12" fill="var(--wn)">▲ Dry month</text>`;
+ $("ctab").innerHTML=`<thead><tr><th scope="col">Month</th><th scope="col">Temp</th><th scope="col">Rain mm</th><th scope="col">Demand mm</th><th scope="col">Balance</th></tr></thead><tbody>`+MN.map((m,i)=>`<tr><th scope="row">${m}</th><td>${tf(cl.t[i])}</td><td>${Math.round(cl.r[i])}</td><td>${Math.round(cl.pet[i])}</td><td class="${cl.r[i]<cl.pet[i]?"no":"ok"}">${Math.round(cl.r[i]-cl.pet[i])}</td></tr>`).join("")+"</tbody>"}
+function planp(){const{res,best,g,st}=LAST,b=res[best];
+ $("planbody").innerHTML=`<div class="c best"><h2>Discuss this rotation: ${b.n}</h2><p class="mu">For ${g.n}, ${CN[st.cur]} is the existing rotation (score ${res[0].s}). The suggested option scores ${b.s}${best?`, mainly from stronger ${NM[Object.entries(b.a).sort((p,q)=>q[1]-p[1])[0][0]]}`:""}.</p>${best===0?'<p>Your current rotation already fits your priorities well. Consider a small cover-crop trial to protect bare months.</p>':""}</div>
+ <div class="c" style="margin-top:14px"><h3>Next steps</h3><ol><li>Take a soil test (organic matter, pH, salinity) on your main fields.</li><li>Check with your local extension office that the crops suit your seasons and seed supply.</li><li>Confirm local markets and prices for each crop.</li><li>Trial the new rotation on about 10% of your land for one season.</li><li>Compare yield, water use and soil cover, then decide.</li></ol></div>
+ <div class="note">RotateWise supports your judgment and does not replace it. Local agronomists should validate every suggestion.</div>`}
+function mapv(){if(!LAST)return;const{res,best,cl}=LAST,sl=+$("slope").value,ax={N:[0,-1],S:[0,1],E:[1,0],W:[-1,0]}[$("asp").value],ly=$("lay").value;$("slv").textContent=sl+"%";
+ const dry=cl.r.filter((r,i)=>cl.pet[i]>20&&r<.5*cl.pet[i]).length/12,fr=cl.t.filter(t=>t<=3).length/12,hv=Math.min(1,Math.max(...cl.r)/150),cc=["#7cc38f","#e8c35b","#d9674a"],lt=["L","M","H"];
+ const draw=(r,id)=>{let s="";for(let y=0;y<8;y++)for(let x=0;x<8;x++){const bp=Math.sin(x*1.3+1)*Math.cos(y*1.1),zn=Math.max(0,Math.min(1,.5-((x-3.5)*ax[0]+(y-3.5)*ax[1])/8*Math.min(1,sl/12)+bp*.12));
+  let v=ly==="eros"?sl/25*1.3*(.6+Math.abs(bp)*.5)+.35*hv-.35*r.a.eros:ly==="water"?dry*(1.15-r.a.water)+.15*zn+.1*(1-r.a.eros):fr*1.8*(.5+(1-zn));
+  v=Math.max(0,Math.min(1,v));const k=v<.33?0:v<.66?1:2;s+=`<rect x="${x*40+2}" y="${y*40+2}" width="38" height="38" rx="5" fill="${cc[k]}"/><text x="${x*40+21}" y="${y*40+27}" text-anchor="middle" font-size="14" font-weight="600" fill="#111">${lt[k]}</text>`}$(id).innerHTML=s};
+ draw(res[0],"m0");draw(res[best],"m1");
+ $("mtxt").textContent={eros:"Erosion risk rises on steeper lower slopes and in heavy-rain months. Cover crops reduce it: compare the two maps.",water:"Water stress is higher in drier climates and on slope crests. Lower-demand rotations ease it.",frost:"Cold air pools in low spots, so frost pockets form downslope. Frost depends on the climate, not the rotation."}[ly]}
+Q("select,input").forEach(e=>e.addEventListener("input",run));
+function route(){const h=(location.hash||"#home").slice(1),el=$(h),id=el&&el.classList.contains("pg")?h:"home";Q(".pg").forEach(p=>p.classList.toggle("on",p.id===id));Q("#nav a").forEach(a=>{a.getAttribute("href")==="#"+id?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});window.scrollTo(0,0);const hh=$(id).querySelector("h1");if(hh&&location.hash)hh.focus({preventScroll:true})}
+async function dl(){const m=$("dlmsg");let D=null;try{D=await claude.use("downloads")}catch(e){}if(!D)D={save:async({filename:f,data:x})=>{const b=x instanceof Blob?x:new Blob([x],{type:"text/html"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=f;document.body.appendChild(a);a.click();a.remove()}};
+ if(!D){m.textContent="Downloads are not available in this view. Open the app in a full browser tab and try again.";return}
+ const{res,best,g,st}=LAST,mo=v=>v.length?[...v].sort((a,b)=>a-b).map(i=>MN[i]).join(", "):"none",L=[["h","RotateWise action plan"],["p",`Region: ${g.n}. Existing rotation: ${CN[st.cur]}. Water access: ${st.irr}. Scenario: rainfall ${st.rain}%, warming +${st.temp} C. Generated ${new Date().toLocaleDateString()}.`]];
+ res.forEach((r,j)=>L.push(["h2",`${r.n}${j===best?" (TOP MATCH)":""}: score ${r.s}/100`],["p",`Crops: ${r.c.map(k=>A(k).n).join(", ")}`],["p",`Top choice in ${LAST.CF[j]}% of simulated futures. Bare months: ${r.bare}. Crop families: ${r.fam}. Soil outlook after 5 years: ${Math.round(r.out[5])} (50 = today). Vulnerable months: ${mo(r.V)}.`],["p",r.iss.length?"Risks: "+r.iss.join("; "):"No growing-window problems detected."]));
+ L.push(["h2","Next steps"],["p","1. Take a soil test (organic matter, pH, salinity) on your main fields."],["p","2. Check with your local extension office that the crops suit your seasons and seed supply."],["p","3. Confirm local markets and prices for each crop."],["p","4. Trial the new rotation on about 10% of your land for one season."],["p","5. Compare yield, water use and soil cover, then decide."],["p","RotateWise supports your judgment and does not replace it. Local agronomists should validate every suggestion. Climate values are NASA POWER long-term monthly averages for one point per region; verify locally."]);
+ let data,name;const J=window.jspdf;
+ if(J){const d=new J.jsPDF({unit:"pt",format:"a4"}),W=d.internal.pageSize.getWidth()-80;let y=50;
+  L.forEach(([t,x])=>{const z=t==="h"?20:t==="h2"?13:10.5;d.setFont("helvetica",t==="p"?"normal":"bold");d.setFontSize(z);d.splitTextToSize(x,W).forEach(l=>{if(y>790){d.addPage();y=50}d.text(l,40,y);y+=z*1.35});y+=t==="p"?4:6});data=d.output("blob");name="rotatewise-action-plan.pdf"}
+ else{data="<!DOCTYPE html><meta charset=utf-8><title>RotateWise plan</title><body style=\"font-family:sans-serif;max-width:720px;margin:auto\">"+L.map(([t,x])=>t==="h"?`<h1>${x}</h1>`:t==="h2"?`<h2>${x}</h2>`:`<p>${x}</p>`).join("");name="rotatewise-action-plan.html"}
+ try{await D.save({filename:name,data});m.textContent="Plan saved."}catch(e){m.textContent=e&&e.code==="declined"?"Download cancelled.":"Could not save the file in this view."}}
+const SK="rotatewise-v1",TK="rotatewise-theme",IDS=["reg","cur","irr","eq","mk","soil","rain","temp","slope","asp","lay","un",...PR.map(p=>"p_"+p[0]),...MN.map((_,i)=>"ct"+i),...MN.map((_,i)=>"cr"+i)];
+function saveF(){let m="Saved on this device. No account needed.";try{const o={};IDS.forEach(i=>o[i]=$(i).value);localStorage.setItem(SK,JSON.stringify(o))}catch(e){m="Saving is not available in this browser."}$("svmsg").textContent=m}
+function loadF(){try{const o=JSON.parse(localStorage.getItem(SK)||"null");if(o)IDS.forEach(i=>{if(o[i]!==undefined&&$(i))$(i).value=o[i]})}catch(e){}}
+function clrF(){try{localStorage.removeItem(SK)}catch(e){}location.reload()}
+const eff=()=>document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+function setTh(t,sv){document.documentElement.setAttribute("data-theme",t);const d=t==="dark",b=$("th");b.textContent=d?"☀️ Light":"🌙 Dark";b.setAttribute("aria-pressed",String(d));b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");if(sv)try{localStorage.setItem(TK,t)}catch(e){}}
+$("th").addEventListener("click",()=>setTh(eff()==="dark"?"light":"dark",true));
+let T0=null;try{T0=localStorage.getItem(TK)}catch(e){}setTh(T0||eff(),false);loadF();
+addEventListener("hashchange",route);run();route();
+</script></body></html>
