@@ -46,5 +46,8 @@ A robustness test reports how often each rotation stays the top choice across 20
 
 Built for the NASA Space Apps Challenge 2026.
 
+## AI disclosure
+The code, text and home-page illustration of this project were created with AI assistance (Claude by Anthropic) and reviewed by the author. The scoring model is rule-based and contains no AI model. No NASA logos or branding are used. Climate data come from the NASA POWER API.
+
 ## License
 Released under the [MIT License](LICENSE).

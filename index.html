@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- Code in this project was generated with AI assistance (Claude by Anthropic) and reviewed by the author. -->
 <html lang="en"><head><meta charset="utf-8">
+<meta name="generator" content="Created with AI assistance (Claude by Anthropic)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="RotateWise helps farmers anywhere compare crop rotations using NASA-style climate data, soil health and their own priorities.">
 <title>RotateWise – Crop Rotation Advisor</title>
@@ -45,13 +47,13 @@ a{color:var(--bl)}button.btn{font-family:inherit}select,input[type=number],.btn{
 <div class="hero"><div><h1 id="h-home" tabindex="-1">The right crop rotation, for any farm on Earth.</h1>
 <p>Droughts, heat and tired soils are hitting farmers in every country. RotateWise turns free NASA climate records into clear, explainable rotation options anyone can explore on a phone.</p>
 <a class="btn" href="#setup">Start with my farm →</a><a class="btn o" href="#learn">How it works</a></div>
-<svg viewBox="0 0 520 340" role="img" aria-label="Illustration: a satellite orbiting above striped farm fields at sunrise"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c3b6b"/><stop offset=".7" stop-color="#f6b66a"/></linearGradient><clipPath id="cp"><rect width="520" height="340" rx="22"/></clipPath></defs>
+<div><svg viewBox="0 0 520 340" role="img" aria-label="Illustration: a satellite orbiting above striped farm fields at sunrise"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c3b6b"/><stop offset=".7" stop-color="#f6b66a"/></linearGradient><clipPath id="cp"><rect width="520" height="340" rx="22"/></clipPath></defs>
 <g clip-path="url(#cp)"><rect width="520" height="340" fill="url(#sk)"/><circle cx="390" cy="200" r="48" fill="#ffe08a"/>
 <path d="M0 215Q120 150 260 208T520 190V340H0Z" fill="#3f8a57"/><path d="M0 252Q150 214 300 248T520 238V340H0Z" fill="#2f7a49"/>
 <path d="M-60 340L150 262H195L70 340Z" fill="#8cbf5e"/><path d="M70 340L195 262H240L200 340Z" fill="#d9b44a"/><path d="M200 340L240 262H285L330 340Z" fill="#5da35f"/><path d="M330 340L285 262H330L460 340Z" fill="#c9a24a"/><path d="M460 340L330 262H375L590 340Z" fill="#76b25b"/>
 <ellipse cx="150" cy="80" rx="120" ry="28" fill="none" stroke="#fff" stroke-opacity=".6" stroke-dasharray="5 6"/>
 <g transform="translate(120 52)"><rect x="-12" y="-8" width="24" height="16" rx="3" fill="#e8eef5"/><rect x="-46" y="-6" width="30" height="12" fill="#2b6cb0"/><rect x="16" y="-6" width="30" height="12" fill="#2b6cb0"/></g>
-<path d="M120 62L150 250M120 62L260 255" stroke="#fff" stroke-opacity=".7" stroke-dasharray="4 5" fill="none"/></g></svg></div>
+<path d="M120 62L150 250M120 62L260 255" stroke="#fff" stroke-opacity=".7" stroke-dasharray="4 5" fill="none"/></g></svg><p class="mu" style="font-size:13px;margin:4px 0 0">AI-generated illustration (created with Claude, Anthropic)</p></div></div>
 <div class="g"><div class="c"><div class="ic" aria-hidden="true">🛰️</div><h3>NASA climate signal</h3><p class="mu">Rainfall, heat, frost and dry-month patterns for your region, or your own data.</p></div>
 <div class="c"><div class="ic" aria-hidden="true">🌱</div><h3>Soil health first</h3><p class="mu">Scores cover nitrogen fixing, organic matter, erosion cover and pest-cycle breaks.</p></div>
 <div class="c"><div class="ic" aria-hidden="true">🤝</div><h3>Built around you</h3><p class="mu">Set your own priorities, water access and soil. Every score is explained, with risks and gaps.</p></div></div>
@@ -110,10 +112,11 @@ a{color:var(--bl)}button.btn{font-family:inherit}select,input[type=number],.btn{
 <p class="mu"><b>Data harmonisation:</b> SMAP (about 9 km), GPM (about 10 km), NASA POWER (about 50 km), MODIS NDVI (250 m to 1 km), Landsat (30 m) and ECOSTRESS (70 m) differ in resolution. The planned pipeline aggregates each layer to monthly values on one common grid, resampling fine layers up to the coarse grid and interpolating coarse layers down, then feeds the same features to the model.</p>
 <p class="mu"><b>Methods compared:</b> rule-based scoring (used, because farmers can see why), clustering of NDVI time series to find seasonal transitions and bare periods, z-score anomaly detection for soil moisture, and tree-based models for yield proxies when local yield records exist.</p>
 <p class="mu"><b>Where local expertise is essential:</b> soil tests and salinity, seed and variety choice, pest history, markets and prices, and water-right or legal limits.</p>
+<h2>AI disclosure</h2><p class="mu">The code, text and home-page illustration of this project were created with AI assistance (Claude, Anthropic) and reviewed by the author. The scoring model is rule-based and contains no AI model. No NASA logos or branding are used. Climate data come from the NASA POWER API.</p>
 <h2>Accessibility</h2><p class="mu">Keyboard navigable, skip link, labelled controls, text and symbols alongside colour, light and dark modes, reduced-motion support and printable output.</p>
 <div class="note"><b>Data notice:</b> monthly temperature and rainfall come from NASA POWER long-term climatology (satellite and model based) for one representative point per region. SMAP, MODIS and GRACE-FO layers are planned. Crop ratings are simplified 1–5 estimates. Validate with local agronomists before real decisions.</div></section>
 </main>
-<footer><div class="w">Built for the 2026 NASA Space Apps Challenge · a decision-support tool, not a replacement for local expertise.</div></footer>
+<footer><div class="w">Built for the 2026 NASA Space Apps Challenge · a decision-support tool, not a replacement for local expertise. Code and illustration created with AI assistance (Claude by Anthropic).</div></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const $=i=>document.getElementById(i),MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],Q=s=>document.querySelectorAll(s);

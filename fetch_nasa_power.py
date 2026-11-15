@@ -1,4 +1,5 @@
-"""Fetch NASA POWER long-term monthly climatology (temperature, rainfall) for the
+"""Written with AI assistance (Claude by Anthropic) and reviewed by the author.
+Fetch NASA POWER long-term monthly climatology (temperature, rainfall) for the
 regions used by RotateWise and print lines ready to paste into the `R` object
 in index.html.  Requires: pip install requests
 """
